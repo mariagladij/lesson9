@@ -22,4 +22,17 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <groups>positiveTests,negativeTests</groups>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

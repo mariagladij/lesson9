@@ -1,23 +1,54 @@
 package ua.hillel.qaauto.lesson9;
 
-import org.testng.annotations.Test;
-
-import static org.testng.AssertJUnit.assertFalse;
-import static org.testng.AssertJUnit.assertTrue;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 public class CheckPhoneNumberTest {
-    @Test
-    public void testValidPhoneNumber() {
-        assertTrue(CheckPhoneNumber.isValidPhoneNumber("+38(099)1234567"));
-        assertTrue(CheckPhoneNumber.isValidPhoneNumber("+38(012)3456789"));
+
+    @DataProvider(name = "validPhoneNumbers")
+    public Object[][] validPhoneNumbers() {
+        return new Object[][]{
+                {"+38(099)1234567"},
+                {"+38(067)9876543"},
+        };
     }
 
-    @Test
-    public void testInvalidPhoneNumber() {
-        assertFalse(CheckPhoneNumber.isValidPhoneNumber("+38(abc)defghij"));
-        assertFalse(CheckPhoneNumber.isValidPhoneNumber("+380991234567"));
-        assertFalse(CheckPhoneNumber.isValidPhoneNumber("+38(123)456789"));
-        assertFalse(CheckPhoneNumber.isValidPhoneNumber("+38(099)12345678"));
+    @DataProvider(name = "invalidPhoneNumbers")
+    public Object[][] invalidPhoneNumbers() {
+        return new Object[][]{
+                {"+38(0123)4567890"},  // Invalid: incorrect length of the area code
+                {"+38(0AB)1234567"},   // Invalid: non-numeric characters in the area code
+                {"+38(099)12345"},     // Invalid: incorrect length of the phone number
+        };
     }
 
+    @Test(dataProvider = "validPhoneNumbers", groups = "positiveTests")
+    public void testIsValidPhoneNumber_Valid(String phoneNumber) {
+        Assert.assertTrue(CheckPhoneNumber.isValidPhoneNumber(phoneNumber));
+    }
+
+    @Test(dataProvider = "invalidPhoneNumbers", groups = "negativeTests")
+    public void testIsValidPhoneNumber_Invalid(String phoneNumber) {
+        Assert.assertFalse(CheckPhoneNumber.isValidPhoneNumber(phoneNumber));
+    }
+
+    @BeforeClass
+    public void beforeClass() {
+        System.out.println("Executing before class setup...");
+    }
+
+    @AfterClass
+    public void afterClass() {
+        System.out.println("Executing after class teardown...");
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        System.out.println("Executing before each test method...");
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("Executing after each test method...");
+    }
 }

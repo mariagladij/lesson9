@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MyTestSuite">
+    <test name="PositiveTests">
+        <groups>
+            <run>
+                <include name="positiveTests"/>
+            </run>
+        </groups>
+    </test>
+
+    <test name="NegativeTests">
+        <groups>
+            <run>
+                <include name="negativeTests"/>
+            </run>
+        </groups>
+    </test>
+
+</suite>
